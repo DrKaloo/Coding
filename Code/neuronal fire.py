@@ -1,3 +1,22 @@
+# Integrate-and-Fire Neuron Simulation
+
+#Description:
+#This script implements a basic Integrate-and-Fire (I&F) neuron model in Python.
+#It simulates how a neuron's membrane voltage evolves over time in response to constant input current,
+#and generates spikes when the voltage crosses a defined threshold. After each spike, the voltage resets.
+
+#This model is a simplified abstraction of neuronal firing and helps illustrate core dynamics of
+#membrane potential integration, firing thresholds, and reset mechanisms.
+
+#Libraries used: NumPy, Matplotlib
+
+#Future improvements:
+# - Add variable input current or time-varying stimuli
+# - Extend to include refractory period or spike output vector
+# - Use real data for comparison or parametrisation
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
