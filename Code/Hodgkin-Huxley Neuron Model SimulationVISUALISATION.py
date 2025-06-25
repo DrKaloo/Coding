@@ -1,31 +1,42 @@
-#A Python-based animated simulation of random neuronal activity using NetworkX and Matplotlib. 
-#This project visualizes spike-like firing patterns in a simple neuron network to demonstrate basic principles of 
-#network dynamics and brain-inspired activity
-
-
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-#Creating a neuron network (random connectivity)
-num_neurons = 20
-G = nx.erdos_renyi_graph(num_neurons, 0.3)
+# Network setup
+N = 25  # number of nodes
+p_conn = 0.25  # connection probability
+net = nx.erdos_renyi_graph(N, p_conn, seed=42)
 
-#Seting up figure for the animation 
-fig, ax = plt.subplots(figsize=(6, 6))
-pos = nx.spring_layout(G)  # Node positions
-node_colours = [0] * num_neurons  # Initialize colour intensity
+# Get layout once and keep it fixed
+layout = nx.spring_layout(net, k=1.5, iterations=50)
 
-#Animation function
-def update(frame):
-    global node_colours
-    node_colours = np.random.rand(num_neurons)  # Random activation levels
+# Start
+fig, ax = plt.subplots(figsize=(8, 8))
+activities = np.zeros(N)
+
+def animate_network(frame):
     ax.clear()
-    nx.draw(G, pos, with_labels=True, node_colour=node_colours, cmap='inferno', edge_colour='gray', node_size=300)
-    ax.set_title(f"Neuron Activity - Frame {frame}")
+    
+    # Simple activity model - some random, with decay
+    global activities
+    activities = activities * 0.8 + np.random.exponential(0.3, N)
+    activities = np.clip(activities, 0, 1)
+    
+    # Draw network
+    nx.draw_networkx_edges(net, layout, ax=ax, alpha=0.4, edge_color='gray', width=0.8)
+    nx.draw_networkx_nodes(net, layout, ax=ax, 
+                          node_color=activities, 
+                          cmap='plasma',
+                          node_size=400,
+                          vmin=0, vmax=1)
+    
+    ax.set_title(f'Network Activity (t={frame})')
+    ax.set_aspect('equal')
 
-#Run animation
-ani = animation.FuncAnimation(fig, update, frames=50, interval=200)
+# Run animation
+anim = animation.FuncAnimation(fig, animate_network, frames=100, 
+                              interval=150, repeat=True)
+
+plt.tight_layout()
 plt.show()
-              
