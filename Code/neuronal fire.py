@@ -1,49 +1,36 @@
-#This model is a simplified abstraction of neuronal firing and helps illustrate core dynamics of
-#membrane potential integration, firing thresholds, and reset mechanisms.
-
-#Libraries used: NumPy, Matplotlib
-
-#Future improvements:
-# - Add variable input current or time-varying stimuli
-# - Extend to include refractory period or spike output vector
-# - Use real data for comparison or parametrisation
-
-
-
-# Simple neuron model
+# I&F neuron simulation
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Setup
-dt = 1  # time step
-T = 100  # total time
-steps = int(T/dt)
-t = np.linspace(0, T, steps)
-V = np.zeros(steps)  # voltage
+# setup parameters
+dt = 0.1        
+T = 100         
+V_thresh = 1.0      
+V_rst = 0.0   
+tau = 10.0    
+I_app = 1.5     # increased this up to get spikes
 
-# neuron params - playing around with these values
-V_th = 1.0    
-V_reset = 0.0   
-I = 0.05      # input
-tau_m = 10    # membrane time constant
+t = np.arange(0, T, dt)
+V = np.zeros(len(t))
+spikes = []
 
 # run simulation
-for i in range(1, steps):
-    # basic integration step
-    dV = (I - V[i-1]) / tau_m * dt
-    V[i] = V[i-1] + dV
+for i in range(1, len(t)):
+    V[i] = V[i-1] + dt * (-V[i-1] + I_app) / tau
     
-    # check for spike
-    if V[i] >= V_th:
-        V[i] = V_reset
+    if V[i] >= V_thresh:
+        spikes.append(t[i])
+        V[i] = V_rst
 
-# plot
-plt.figure(figsize=(10, 5))
-plt.plot(t, V, 'b-', linewidth=1.5)
-plt.axhline(V_th, color='red', linestyle='--', alpha=0.7)
+print(f"Got {len(spikes)} spikes")
+if spikes:
+    print(f"First at {spikes[0]:.1f}ms, ISI = {np.mean(np.diff(spikes)):.1f}ms")
+
+# plotting
+plt.figure(figsize=(10,5))
+plt.plot(t, V, 'b-')
+plt.axhline(V_thresh, color='r', linestyle='--', alpha=0.7)
 plt.xlabel('Time (ms)')
-plt.ylabel('Membrane potential')
+plt.ylabel('V')
 plt.title('I&F Neuron')
-plt.grid(alpha=0.3)
-plt.tight_layout()
 plt.show()
