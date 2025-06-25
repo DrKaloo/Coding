@@ -7,7 +7,6 @@ I'm currently preparing for postgraduate study in Computational Neuroscience, an
 My recent work includes:
 - Simulations of neural behaviour (e.g., Hodgkin-Huxley models)
 - Exploratory data analysis in psychology and cognitive science
-- A home-built microscopy-AI pipeline for biological image classification
 
 I'm learning Python through hands-on projects and courses from Udemy and Harvard Online. I also work with tools like:
 - `NumPy`, `pandas`, `matplotlib`, `scikit-learn`, `OpenCV`
