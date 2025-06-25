@@ -1,54 +1,23 @@
-# fMRI Data Visualisation (OpenNeuro – ds006111) Big scope project to integrate all fields into a big project
-
-# Project Status: In Progress – Early Stages
-
-This is an exploratory project focused on visualising functional MRI (fMRI) data using publicly available BIDS-format datasets from the OpenNeuro repository.
-
-I am currently working with dataset [`ds006111`](https://openneuro.org/datasets/ds006111/versions/1.0.0), which provides a minimal example of fMRI and anatomical data. While this dataset is small and synthetic, it serves as a valuable starting point for understanding how to:
-
-- Navigate and interpret BIDS-compliant fMRI datasets
-- Load `.nii.gz` files using Python libraries such as `nibabel` and `nilearn`
-- Visualise brain volume slices (axial, coronal, sagittal) 
-- Lay the foundation for future preprocessing and statistical pipelines
-
-# Current Work Focus
-
-- [ ] Successfully load and inspect NIfTI files (anatomical + functional)
-- [ ] Visualise anatomical volume slices using `matplotlib`
-- [ ] Apply brain masking and noise filtering
-- [ ] Visualise functional activity over time
-- [ ] Prepare preprocessing workflow using `nilearn`
-
-# Long-Term Goals
-
-- Transition from simple static visualisation to dynamic brain activity maps
-- Use more complex OpenNeuro datasets (e.g. task-based or resting-state fMRI)
-- Connect with cognitive tasks and metadata
-- Explore dimensionality reduction, region-of-interest (ROI) analysis, or eventually topological data analysis
-
-
-# This project has a big scope as many of the areas are not yet clear to my knowledge and understanding. 
-
-# Doing this will allow me to prepare for my postgraduate studies in Computational Neuroscience and sharpen my skills in coding!
-
-
-
-
-
-
-
-
-# 1
-# Path to the anatomical image in folder
-
-anatomi_path = "......nii.gz"
-
-
-
-# 2
-# Libraries to use and download
+# fMRI visualization project - early stages
+# Working with OpenNeuro ds006111 dataset for practice
+# Goal: learn to visualise brain data for my MSc preparation
 
 import nibabel as nib
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+
+# Dataset path (need to update when I download it)
+data_direc = "ds006111"
+anato_path = ".....nii.gz"
+
+# Basic test to see if libraries work
+print("Libraries imported successfully")
+print("Ready to start working with brain data")
+
+# Next steps:
+# - Download ds006111 dataset from OpenNeuro
+# - Figure out how to load .nii.gz files with nibabel
+# - Try plotting some brain slices
+# - Look into different viewing orientations (axial, sagittal, coronal)
+# - Eventually work with functional data too
